@@ -1,5 +1,4 @@
-const mysql = require('mysql2')
-
+const mysql = require('mysql2/promise')
 
 const {
   DATABASE_USER,
@@ -10,15 +9,28 @@ const {
 } = process.env
 
 
-const client = await mysql.createConnection({
-  host: DATABASE_HOST,
-  port: DATABASE_PORT,
-  user: DATABASE_USER,
-  password: DATABASE_PASSWORD,
-  database: DATABASE_NAME,
-	charset: 'utf8',
-	timezone: 'UTC'
-})
+async function main() {
 
-console.log(`Client: ${client}`)
-// do something with the connection (e.g., create and query db)
+	const client = await mysql.createConnection({
+		host: DATABASE_HOST,
+		port: DATABASE_PORT,
+		user: DATABASE_USER,
+		password: DATABASE_PASSWORD,
+		database: DATABASE_NAME,
+		charset: 'utf8',
+		timezone: 'UTC'
+	})
+
+	console.log(`Client: ${client}`)
+	// do something with the connection (e.g., create and query db)
+
+	// create a router
+}
+
+// call main() and catch errors
+main().catch(err => {
+  process.stderr.write(`${err.message}\n`);
+  process.exit(1);
+});
+
+module.exports = main
