@@ -1,6 +1,13 @@
-const mysql = require('mysql2/promise')
+const Koa = require('koa')
+const Router = require('koa-router')
+const cors = require('@koa/cors')
+const mysql = require('mysql')
+const BodyParser = require('koa-bodyparser')
+const mount = require('koa-mount')
+
 
 const {
+	PORT = 9000,
   DATABASE_USER,
   DATABASE_PASSWORD,
   DATABASE_HOST,
@@ -9,9 +16,17 @@ const {
 } = process.env
 
 
-async function main() {
+function createRouter() {
+  const router = new Router()
+	// define endpoints
+	router.get('/', (ctx, next) => {
+    ctx.body = 'Hello World!'
+	})
+  return router
+}
 
-	const client = await mysql.createConnection({
+async function main() {
+	const client = mysql.createConnection({
 		host: DATABASE_HOST,
 		port: DATABASE_PORT,
 		user: DATABASE_USER,
@@ -21,10 +36,29 @@ async function main() {
 		timezone: 'UTC'
 	})
 
-	console.log(`Client: ${client}`)
-	// do something with the connection (e.g., create and query db)
+	client.connect(function(err) {
+		if (err) {
+			console.error('error connecting: ' + err.stack)
+			return
+		}
+	 
+		console.log('connected as id ' + client.threadId)
+	})
 
-	// create a router
+	// use client to create db tables
+
+  const router = createRouter()
+  const app = new Koa()
+
+  app.use(cors())
+    .use(BodyParser())
+    .use(mount(router.routes()))
+    .use(router.allowedMethods())
+
+  // start server
+  app.listen(PORT, function() {
+    process.stdout.write(`Server now listening on port ${PORT}\n`)
+	})
 }
 
 // call main() and catch errors
