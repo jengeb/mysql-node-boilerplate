@@ -7,11 +7,11 @@ const mount = require('koa-mount')
 
 const {
 	PORT = 9000,
-		DATABASE_USER,
-		DATABASE_PASSWORD,
-		DATABASE_HOST,
-		DATABASE_PORT,
-		DATABASE_NAME
+	DATABASE_USER,
+	DATABASE_PASSWORD,
+	DATABASE_HOST,
+	DATABASE_PORT,
+	DATABASE_NAME
 } = process.env
 
 function createRouter() {
