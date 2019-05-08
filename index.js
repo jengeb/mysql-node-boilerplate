@@ -1,18 +1,24 @@
-const mysql = require('mysql')
+const mysql = require('mysql2')
 
-const connection = mysql.createConnection({
-  host: process.env.DATABASE_HOST,
-  port: process.env.DATABASE_PORT,
-  user: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE_NAME,
-  charset: 'utf8'
+
+const {
+  DATABASE_USER,
+  DATABASE_PASSWORD,
+  DATABASE_HOST,
+  DATABASE_PORT,
+  DATABASE_NAME
+} = process.env
+
+
+const client = await mysql.createConnection({
+  host: DATABASE_HOST,
+  port: DATABASE_PORT,
+  user: DATABASE_USER,
+  password: DATABASE_PASSWORD,
+  database: DATABASE_NAME,
+	charset: 'utf8',
+	timezone: 'UTC'
 })
 
-connection.connect(err => {
-  if (err) {
-    console.error('Error while connecting to MySQL: ' + err.stack)
-    return
-  }
-  console.log('Connection to DB established')
-})
+console.log(`Client: ${client}`)
+// do something with the connection (e.g., create and query db)
