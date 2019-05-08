@@ -18,6 +18,11 @@
   },
   "homepage": "https://github.com/jengeb/mysql-node#readme",
   "dependencies": {
-    "mysql2": "^1.6.5"
+    "@koa/cors": "^3.0.0",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-mount": "^4.0.0",
+    "koa-router": "^7.4.0",
+    "mysql": "^2.17.1"
   }
 }
