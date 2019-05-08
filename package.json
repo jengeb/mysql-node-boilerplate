@@ -1,5 +1,5 @@
 {
-  "name": "mysql-node",
+  "name": "mysql-node-boilerplate",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,13 +11,13 @@
     "type": "git",
     "url": "git+https://github.com/jengeb/mysql-node.git"
   },
-  "author": "",
+  "author": "Jenny Gebske <jennifer@gebske.de",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jengeb/mysql-node/issues"
   },
   "homepage": "https://github.com/jengeb/mysql-node#readme",
   "dependencies": {
-    "mysql": "^2.16.0"
+    "mysql2": "^1.6.5"
   }
 }
